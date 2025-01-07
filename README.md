@@ -1,3 +1,7 @@
+Fork from [Cherry Studio](https://github.com/CherryHQ/cherry-studio.git)
+
+Add **API Service** for **Cherry Studio** to support **Chat**, **RAG** and **Knowledge Base**. more details see [API](./api/README.md)
+
 <div align="center">
   <a href="https://github.com/kangfenmao/cherry-studio/releases">
     <img src="https://github.com/kangfenmao/cherry-studio/blob/main/build/icon.png?raw=true" width="150" height="150" alt="banner" />
