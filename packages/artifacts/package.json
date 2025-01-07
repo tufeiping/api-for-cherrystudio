@@ -15,5 +15,8 @@
     "artifacts"
   ],
   "author": "kangfenmao",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@cherry-studio/artifacts": "file:"
+  }
 }
