@@ -203,37 +203,57 @@ class KnowledgeService {
 
       // 获取搜索结果
       const results = await app.search(query, limit)
-      console.log('Raw search results:', results)
 
-      // 如果有结果但相似度未定义，手动计算相似度
-      const processedResults = results.map((result) => {
-        if (result.similarity === undefined) {
-          // 为防止未定义的相似度，设置一个默认值
-          return {
-            ...result,
-            similarity: 0.5 // 设置一个中等相似度
-          }
+      // 处理搜索结果
+      const processedResults = results.map((result) => ({
+        ...result,
+        // 如果没有相似度，计算一个基于内容相关性的粗略分数
+        similarity: result.similarity || this.calculateRelevanceScore(query, result.pageContent)
+      }))
+
+      // 严格过滤结果
+      const filteredResults = processedResults.filter((result) => {
+        // 1. 相似度阈值过滤
+        if (result.similarity < 0.6) {
+          // 提高相似度阈值
+          return false
         }
-        return result
+
+        // 2. 内容长度过滤
+        if (result.pageContent.length < 50) {
+          // 增加最小内容长度
+          return false
+        }
+
+        // 3. 关键词匹配检查
+        const queryKeywords = query.toLowerCase().split(/\s+/)
+        const contentWords = result.pageContent.toLowerCase()
+        const hasRelevantKeywords = queryKeywords.some(
+          (keyword) => contentWords.includes(keyword) && keyword.length > 1
+        )
+
+        return hasRelevantKeywords
       })
 
       // 按相似度排序并限制数量
-      const sortedResults = processedResults.sort((a, b) => (b.similarity || 0) - (a.similarity || 0)).slice(0, limit)
-
-      console.log('Processed results:', {
-        total: results.length,
-        processed: sortedResults.length,
-        samples: sortedResults.map((r) => ({
-          similarity: r.similarity,
-          content: r.pageContent.substring(0, 100)
-        }))
-      })
-
-      return sortedResults
+      return filteredResults.sort((a, b) => b.similarity - a.similarity).slice(0, limit)
     } catch (error) {
       console.error('Search error:', error)
       return []
     }
+  }
+
+  // 添加相关性评分方法
+  private calculateRelevanceScore(query: string, content: string): number {
+    const queryWords = new Set(query.toLowerCase().split(/\s+/))
+    const contentWords = new Set(content.toLowerCase().split(/\s+/))
+
+    let matchCount = 0
+    queryWords.forEach((word) => {
+      if (contentWords.has(word)) matchCount++
+    })
+
+    return matchCount / queryWords.size
   }
 
   async chat(baseId: string, modelId: string, query: string) {
@@ -246,29 +266,47 @@ class KnowledgeService {
         throw new Error(`Provider not found for model/provider ID: ${modelId}`)
       }
 
-      // 1. 先进行知识检索，增加结果数量
-      const searchResults = await this.search(baseId, query, 5) // 增加到5个结果
-      console.log('Search results count:', searchResults.length)
+      // 创建 OpenAI 实例
+      const openai = new OpenAI({
+        apiKey: provider.apiKey,
+        baseURL: provider.baseURL
+      })
 
-      if (!searchResults.length) {
-        console.log('No relevant search results found')
+      // 搜索相关内容
+      const searchResults = await this.search(baseId, query, 5)
+
+      // 如果没有找到相关内容或相关度不够，直接使用大模型回答
+      if (!searchResults.length || !searchResults.some((r) => r.similarity >= 0.6)) {
+        const completion = await openai.chat.completions.create({
+          model: provider.model.id,
+          messages: [
+            {
+              role: 'system',
+              content: '你是一个专业的助手。当遇到专业问题时，请基于你的知识谨慎回答，如果不确定请明确说明。'
+            },
+            { role: 'user', content: query }
+          ],
+          temperature: 0.7,
+          max_tokens: 1000
+        })
+
         return {
-          answer: '抱歉，没有找到足够相关的知识内容来回答您的问题。请尝试换个方式提问，或者联系技术支持。',
-          references: []
+          answer: completion.choices[0].message.content,
+          references: [],
+          note: '此回答来自AI模型的通用知识，而非知识库。'
         }
       }
 
-      // 2. 构建更详细的上下文
+      // 有相关内容时，使用 RAG 方式回答
       const context = searchResults
         .map(
-          (item: any, index: number) =>
+          (item, index) =>
             `参考资料 ${index + 1}:\n内容: ${item.pageContent}\n来源: ${item.metadata.source}\n相关度: ${item.similarity.toFixed(2)}`
         )
         .join('\n\n')
 
-      // 3. 构建提示词
       const prompt = `
-基于以下参考资料回答用户问题。如果无法从参考资料中得到答案，请明确说明。
+基于以下参考资料回答用户问题。如果无法从参考资料中得到完整答案，可以适当补充你的知识，但请明确指出哪些是来自参考资料，哪些是你的补充。
 
 参考资料:
 ${context}
@@ -278,28 +316,26 @@ ${context}
 请提供准确、客观的回答。
 `
 
-      // 5. 调用模型生成回答
-      const openai = new OpenAI({
-        apiKey: provider.apiKey,
-        baseURL: provider.baseURL
-      })
-
       const completion = await openai.chat.completions.create({
         model: provider.model.id,
         messages: [
-          { role: 'system', content: '你是一个专业的助手,善于基于参考资料回答问题。' },
+          {
+            role: 'system',
+            content: '你是一个专业的助手，善于基于参考资料回答问题，并在必要时补充相关知识。'
+          },
           { role: 'user', content: prompt }
         ],
         temperature: 0.7,
         max_tokens: 1000
       })
 
-      // 6. 返回结果
+      // 返回结果
       return {
         answer: completion.choices[0].message.content,
-        references: searchResults.map((item: any) => ({
+        references: searchResults.map((item) => ({
           content: item.pageContent,
-          source: item.metadata.source
+          source: item.metadata.source,
+          similarity: item.similarity
         }))
       }
     } catch (error) {

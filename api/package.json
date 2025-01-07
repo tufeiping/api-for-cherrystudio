@@ -13,6 +13,7 @@
     "@llm-tools/embedjs": "^0.1.25",
     "@llm-tools/embedjs-libsql": "^0.1.25",
     "@llm-tools/embedjs-openai": "^0.1.25",
+    "cherry-studio-api": "file:",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
