@@ -97,6 +97,16 @@ curl -X POST -H "x-api-key: your-api-key" \
 
 > 参数说明： baseId 知识库ID，modelId 模型ID，query 查询内容
 
+如果知识库中没有找到相关内容，则会自动从模型中生成回答。
+
+```bash
+curl -X POST -H "x-api-key: your-api-key-here"   -H "Content-Type: application/json"   -d '{
+    "baseId": "U2dpV8NdLmHExqrbPkKAo",
+    "modelId": "silicon",
+    "query": "能否帮我证明一下这个公式：\lim_{x \to 0} \frac{\sin(x)}{x} = 1"
+  }'   http://localhost:4000/api/knowledge/chat
+```
+
 ![API Chat](./screenshot-chat.png)
 
 ## .env
