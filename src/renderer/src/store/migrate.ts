@@ -775,6 +775,21 @@ const migrateConfig = {
   '51': (state: RootState) => {
     state.settings.topicNamingPrompt = ''
     return state
+  },
+  '52': (state: RootState) => {
+    if (state.shortcuts) {
+      state.shortcuts.shortcuts.push({
+        key: 'search_message',
+        shortcut: [isMac ? 'Command' : 'Ctrl', 'F'],
+        editable: true,
+        enabled: true,
+        system: false
+      })
+    }
+    state.settings.showTranslateIcon = true
+    state.settings.showPaintingIcon = true
+    state.settings.showKnowledgeIcon = true
+    return state
   }
 }
 

@@ -394,7 +394,10 @@
       "general.user_name.placeholder": "輸入您的名稱",
       "general.view_webdav_settings": "查看 WebDAV 設定",
       "general.display.title": "顯示設定",
+      "display.sidebar.translate.icon": "顯示翻譯圖示",
+      "display.sidebar.painting.icon": "顯示繪圖圖示",
       "display.sidebar.minapp.icon": "顯示小程序圖示",
+      "display.sidebar.knowledge.icon": "顯示知識圖示",
       "display.sidebar.files.icon": "顯示文件圖示",
       "display.sidebar.title": "側邊欄設定",
       "display.topic.title": "話題設定",
@@ -489,7 +492,8 @@
         "clear_shortcut": "清除快捷鍵",
         "toggle_show_assistants": "切換助手顯示",
         "toggle_show_topics": "切換話題顯示",
-        "copy_last_message": "複製上一条消息"
+        "copy_last_message": "複製上一条消息",
+        "search_message": "搜索消息"
       },
       "theme.auto": "自動",
       "theme.dark": "深色主題",

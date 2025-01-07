@@ -42,7 +42,10 @@ export interface SettingsState {
   autoTranslateWithSpace: boolean
   enableTopicNaming: boolean
   // Sidebar icons
+  showTranslateIcon: boolean
+  showPaintingIcon: boolean
   showMinappIcon: boolean
+  showKnowledgeIcon: boolean
   showFilesIcon: boolean
   customCss: string
   topicNamingPrompt: string
@@ -84,7 +87,10 @@ const initialState: SettingsState = {
   translateModelPrompt: TRANSLATE_PROMPT,
   autoTranslateWithSpace: false,
   enableTopicNaming: true,
+  showTranslateIcon: true,
+  showPaintingIcon: true,
   showMinappIcon: true,
+  showKnowledgeIcon: true,
   showFilesIcon: true,
   customCss: '',
   topicNamingPrompt: ''
@@ -203,8 +209,17 @@ const settingsSlice = createSlice({
     setEnableTopicNaming: (state, action: PayloadAction<boolean>) => {
       state.enableTopicNaming = action.payload
     },
+    setShowTranslateIcon: (state, action: PayloadAction<boolean>) => {
+      state.showTranslateIcon = action.payload
+    },
+    setShowPaintingIcon: (state, action: PayloadAction<boolean>) => {
+      state.showPaintingIcon = action.payload
+    },
     setShowMinappIcon: (state, action: PayloadAction<boolean>) => {
       state.showMinappIcon = action.payload
+    },
+    setShowKnowledgeIcon: (state, action: PayloadAction<boolean>) => {
+      state.showKnowledgeIcon = action.payload
     },
     setShowFilesIcon: (state, action: PayloadAction<boolean>) => {
       state.showFilesIcon = action.payload
@@ -258,7 +273,10 @@ export const {
   setTranslateModelPrompt,
   setAutoTranslateWithSpace,
   setEnableTopicNaming,
+  setShowTranslateIcon,
+  setShowPaintingIcon,
   setShowMinappIcon,
+  setShowKnowledgeIcon,
   setShowFilesIcon,
   setPasteLongTextThreshold,
   setCustomCss,

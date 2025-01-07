@@ -394,7 +394,10 @@
       "general.user_name.placeholder": "Введите ваше имя",
       "general.view_webdav_settings": "Просмотр настроек WebDAV",
       "general.display.title": "Настройки отображения",
+      "display.sidebar.translate.icon": "Показывать иконку перевода",
+      "display.sidebar.painting.icon": "Показывать иконку рисования",
       "display.sidebar.minapp.icon": "Показывать иконку мини-приложения",
+      "display.sidebar.knowledge.icon": "Показывать иконку знаний",
       "display.sidebar.files.icon": "Показывать иконку файлов",
       "display.sidebar.title": "Настройки боковой панели",
       "display.topic.title": "Настройки топиков",
@@ -501,7 +504,8 @@
         "clear_shortcut": "Очистить сочетание клавиш",
         "toggle_show_assistants": "Переключить отображение ассистентов",
         "toggle_show_topics": "Переключить отображение топиков",
-        "copy_last_message": "Копировать последнее сообщение"
+        "copy_last_message": "Копировать последнее сообщение",
+        "search_message": "Поиск сообщения"
       },
       "theme.auto": "Автоматически",
       "theme.dark": "Темная",

@@ -392,7 +392,10 @@
       "general.user_name.placeholder": "ユーザー名を入力",
       "general.view_webdav_settings": "WebDAV設定を表示",
       "general.display.title": "表示設定",
+      "display.sidebar.translate.icon": "翻訳のアイコンを表示",
+      "display.sidebar.painting.icon": "絵画のアイコンを表示",
       "display.sidebar.minapp.icon": "ミニアプリのアイコンを表示",
+      "display.sidebar.knowledge.icon": "ナレッジのアイコンを表示",
       "display.sidebar.files.icon": "ファイルのアイコンを表示",
       "display.sidebar.title": "サイドバー設定",
       "display.topic.title": "トピック設定",
@@ -487,7 +490,8 @@
         "clear_shortcut": "ショートカットをクリア",
         "toggle_show_assistants": "アシスタントの表示を切り替え",
         "toggle_show_topics": "トピックの表示を切り替え",
-        "copy_last_message": "最後のメッセージをコピー"
+        "copy_last_message": "最後のメッセージをコピー",
+        "search_message": "メッセージを検索"
       },
       "theme.auto": "自動",
       "theme.dark": "ダークテーマ",

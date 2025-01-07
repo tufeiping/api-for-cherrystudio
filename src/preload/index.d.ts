@@ -76,6 +76,10 @@ declare global {
         remove: ({ uniqueId, base }: { uniqueId: string; base: KnowledgeBaseParams }) => Promise<void>
         search: ({ search, base }: { search: string; base: KnowledgeBaseParams }) => Promise<ExtractChunkData[]>
       }
+      window: {
+        setMinimumSize: (width: number, height: number) => Promise<void>
+        resetMinimumSize: () => Promise<void>
+      }
     }
   }
 }

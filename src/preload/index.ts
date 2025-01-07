@@ -70,6 +70,10 @@ const api = {
       ipcRenderer.invoke('knowledge-base:remove', { uniqueId, base }),
     search: ({ search, base }: { search: string; base: KnowledgeBaseParams }) =>
       ipcRenderer.invoke('knowledge-base:search', { search, base })
+  },
+  window: {
+    setMinimumSize: (width: number, height: number) => ipcRenderer.invoke('window:set-minimum-size', width, height),
+    resetMinimumSize: () => ipcRenderer.invoke('window:reset-minimum-size')
   }
 }
 

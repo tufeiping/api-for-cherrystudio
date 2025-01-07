@@ -395,7 +395,10 @@
       "general.user_name.placeholder": "请输入用户名",
       "general.view_webdav_settings": "查看 WebDAV 设置",
       "general.display.title": "显示设置",
+      "display.sidebar.translate.icon": "显示翻译图标",
+      "display.sidebar.painting.icon": "显示绘画图标",
       "display.sidebar.minapp.icon": "显示小程序图标",
+      "display.sidebar.knowledge.icon": "显示知识图标",
       "display.sidebar.files.icon": "显示文件图标",
       "display.sidebar.title": "侧边栏设置",
       "display.topic.title": "话题设置",
@@ -490,7 +493,8 @@
         "clear_shortcut": "清除快捷键",
         "toggle_show_assistants": "切换助手显示",
         "toggle_show_topics": "切换话题显示",
-        "copy_last_message": "复制上一条消息"
+        "copy_last_message": "复制上一条消息",
+        "search_message": "搜索消息"
       },
       "theme.auto": "跟随系统",
       "theme.dark": "深色主题",

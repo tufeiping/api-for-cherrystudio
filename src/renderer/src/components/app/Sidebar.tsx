@@ -21,7 +21,8 @@ const Sidebar: FC = () => {
   const { minappShow } = useRuntime()
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { windowStyle, showMinappIcon, showFilesIcon } = useSettings()
+  const { windowStyle, showTranslateIcon, showPaintingIcon, showMinappIcon, showKnowledgeIcon, showFilesIcon } =
+    useSettings()
   const { theme, toggleTheme } = useTheme()
 
   const isRoute = (path: string): string => (pathname === path ? 'active' : '')
@@ -61,20 +62,24 @@ const Sidebar: FC = () => {
               </Icon>
             </StyledLink>
           </Tooltip>
-          <Tooltip title={t('paintings.title')} mouseEnterDelay={0.8} placement="right">
-            <StyledLink onClick={() => to('/paintings')}>
-              <Icon className={isRoute('/paintings')}>
-                <PictureOutlined style={{ fontSize: 16 }} />
-              </Icon>
-            </StyledLink>
-          </Tooltip>
-          <Tooltip title={t('translate.title')} mouseEnterDelay={0.8} placement="right">
-            <StyledLink onClick={() => to('/translate')}>
-              <Icon className={isRoute('/translate')}>
-                <TranslationOutlined />
-              </Icon>
-            </StyledLink>
-          </Tooltip>
+          {showPaintingIcon && (
+            <Tooltip title={t('paintings.title')} mouseEnterDelay={0.8} placement="right">
+              <StyledLink onClick={() => to('/paintings')}>
+                <Icon className={isRoute('/paintings')}>
+                  <PictureOutlined style={{ fontSize: 16 }} />
+                </Icon>
+              </StyledLink>
+            </Tooltip>
+          )}
+          {showTranslateIcon && (
+            <Tooltip title={t('translate.title')} mouseEnterDelay={0.8} placement="right">
+              <StyledLink onClick={() => to('/translate')}>
+                <Icon className={isRoute('/translate')}>
+                  <TranslationOutlined />
+                </Icon>
+              </StyledLink>
+            </Tooltip>
+          )}
           {showMinappIcon && (
             <Tooltip title={t('minapp.title')} mouseEnterDelay={0.8} placement="right">
               <StyledLink onClick={() => to('/apps')}>
@@ -84,13 +89,15 @@ const Sidebar: FC = () => {
               </StyledLink>
             </Tooltip>
           )}
-          <Tooltip title={t('knowledge_base.title')} mouseEnterDelay={0.5} placement="right">
-            <StyledLink onClick={() => to('/knowledge')}>
-              <Icon className={isRoute('/knowledge')}>
-                <FileSearchOutlined />
-              </Icon>
-            </StyledLink>
-          </Tooltip>
+          {showKnowledgeIcon && (
+            <Tooltip title={t('knowledge_base.title')} mouseEnterDelay={0.5} placement="right">
+              <StyledLink onClick={() => to('/knowledge')}>
+                <Icon className={isRoute('/knowledge')}>
+                  <FileSearchOutlined />
+                </Icon>
+              </StyledLink>
+            </Tooltip>
+          )}
           {showFilesIcon && (
             <Tooltip title={t('files.title')} mouseEnterDelay={0.8} placement="right">
               <StyledLink onClick={() => to('/files')}>

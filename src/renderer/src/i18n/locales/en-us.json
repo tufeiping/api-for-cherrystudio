@@ -394,7 +394,10 @@
       "general.user_name.placeholder": "Enter your name",
       "general.view_webdav_settings": "View WebDAV settings",
       "general.display.title": "Display Settings",
+      "display.sidebar.translate.icon": "Show Translate icon",
+      "display.sidebar.painting.icon": "Show Painting icon",
       "display.sidebar.minapp.icon": "Show MinApp icon",
+      "display.sidebar.knowledge.icon": "Show Knowledge icon",
       "display.sidebar.files.icon": "Show Files icon",
       "display.sidebar.title": "Sidebar Settings",
       "display.topic.title": "Topic Settings",
@@ -501,7 +504,8 @@
         "clear_shortcut": "Clear Shortcut",
         "toggle_show_assistants": "Toggle Assistants",
         "toggle_show_topics": "Toggle Topics",
-        "copy_last_message": "Copy Last Message"
+        "copy_last_message": "Copy Last Message",
+        "search_message": "Search Message"
       },
       "theme.auto": "Auto",
       "theme.dark": "Dark",

@@ -43,6 +43,7 @@ const AssistantPromptSettings: React.FC<Props> = ({ assistant, updateAssistant, 
         value={prompt}
         onChange={(e) => setPrompt(e.target.value)}
         onBlur={onUpdate}
+        spellCheck={false}
         style={{ minHeight: 'calc(80vh - 200px)', maxHeight: 'calc(80vh - 150px)' }}
       />
       <HStack width="100%" justifyContent="flex-end" mt="10px">

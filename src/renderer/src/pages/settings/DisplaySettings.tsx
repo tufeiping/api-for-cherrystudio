@@ -6,8 +6,11 @@ import {
   setClickAssistantToShowTopic,
   setCustomCss,
   setShowFilesIcon,
+  setShowKnowledgeIcon,
   setShowMinappIcon,
-  setShowTopicTime
+  setShowPaintingIcon,
+  setShowTopicTime,
+  setShowTranslateIcon
 } from '@renderer/store/settings'
 import { ThemeMode } from '@renderer/types'
 import { Input, Select, Switch } from 'antd'
@@ -22,7 +25,10 @@ const DisplaySettings: FC = () => {
     theme,
     windowStyle,
     setWindowStyle,
+    showTranslateIcon,
+    showPaintingIcon,
     showMinappIcon,
+    showKnowledgeIcon,
     showFilesIcon,
     topicPosition,
     setTopicPosition,
@@ -104,8 +110,23 @@ const DisplaySettings: FC = () => {
         <SettingTitle>{t('settings.display.sidebar.title')}</SettingTitle>
         <SettingDivider />
         <SettingRow>
+          <SettingRowTitle>{t('settings.display.sidebar.translate.icon')}</SettingRowTitle>
+          <Switch checked={showTranslateIcon} onChange={(value) => dispatch(setShowTranslateIcon(value))} />
+        </SettingRow>
+        <SettingDivider />
+        <SettingRow>
+          <SettingRowTitle>{t('settings.display.sidebar.painting.icon')}</SettingRowTitle>
+          <Switch checked={showPaintingIcon} onChange={(value) => dispatch(setShowPaintingIcon(value))} />
+        </SettingRow>
+        <SettingDivider />
+        <SettingRow>
           <SettingRowTitle>{t('settings.display.sidebar.minapp.icon')}</SettingRowTitle>
           <Switch checked={showMinappIcon} onChange={(value) => dispatch(setShowMinappIcon(value))} />
+        </SettingRow>
+        <SettingDivider />
+        <SettingRow>
+          <SettingRowTitle>{t('settings.display.sidebar.knowledge.icon')}</SettingRowTitle>
+          <Switch checked={showKnowledgeIcon} onChange={(value) => dispatch(setShowKnowledgeIcon(value))} />
         </SettingRow>
         <SettingDivider />
         <SettingRow>
