@@ -96,3 +96,21 @@ curl -X POST -H "x-api-key: your-api-key" \
 ```
 
 > 参数说明： baseId 知识库ID，modelId 模型ID，query 查询内容
+
+![API Chat](./screenshot-chat.png)
+
+## .env
+
+.env 文件用于配置API服务信息。
+
+```
+PORT=4000
+BACKUP_PATH=H:/knowledge-base
+```
+
+## 如何使用
+
+打开Cherry Studio，配置模型和知识库，完成RAG过程，然后利用Cherry Studio的数据备份功能，将数据导出为zip文件，然后上传到服务器。
+配置 .env 文件的 BACKUP_PATH 为服务器上的知识库**解压后**的路径，然后启动API服务。
+
+![Cherry Studio 数据备份](./screenshot.png)
