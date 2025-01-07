@@ -232,7 +232,11 @@ function formatErrorMessage(error: any): string {
   try {
     return (
       '```json\n' +
-      JSON.stringify(error?.response?.data || error?.response || error?.request || error, null, 2) +
+      JSON.stringify(
+        error?.error?.message || error?.response?.data || error?.response || error?.request || error,
+        null,
+        2
+      ) +
       '\n```'
     )
   } catch (e) {

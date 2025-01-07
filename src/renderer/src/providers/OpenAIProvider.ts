@@ -1,4 +1,4 @@
-import { isEmbeddingModel, isSupportedModel, isVisionModel, isWebSearchModel } from '@renderer/config/models'
+import { getWebSearchParams, isEmbeddingModel, isSupportedModel, isVisionModel } from '@renderer/config/models'
 import { getStoreSetting } from '@renderer/hooks/useSettings'
 import i18n from '@renderer/i18n'
 import { getAssistantSettings, getDefaultModel, getTopNamingModel } from '@renderer/services/AssistantService'
@@ -149,7 +149,7 @@ export default class OpenAIProvider extends BaseProvider {
       max_tokens: maxTokens,
       keep_alive: this.keepAliveTime,
       stream: isSupportStreamOutput,
-      ...(isWebSearchModel(model) ? { enable_enhancement: true } : {}),
+      ...(assistant.enableWebSearch ? getWebSearchParams(model) : {}),
       ...this.getCustomParameters(assistant)
     })
 
