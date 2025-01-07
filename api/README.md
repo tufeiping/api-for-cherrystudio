@@ -18,7 +18,7 @@ npm install
 npm run dev
 ```
 
-## 关键点：
+## 关键点
 
 1. 数据存储结构：
 
