@@ -183,6 +183,7 @@
       "name": "名前",
       "open": "開く",
       "size": "サイズ",
+      "type": "タイプ",
       "text": "テキスト",
       "title": "ファイル",
       "edit": "編集",
@@ -398,6 +399,10 @@
       "display.sidebar.knowledge.icon": "ナレッジのアイコンを表示",
       "display.sidebar.files.icon": "ファイルのアイコンを表示",
       "display.sidebar.title": "サイドバー設定",
+      "display.sidebar.visible": "サイドバーのアイコンを表示する",
+      "display.sidebar.disabled": "サイドバーのアイコンを非表示にする",
+      "display.sidebar.chat.hiddenMessage": "アシスタントは基本的な機能であり、非表示はサポートされていません",
+      "display.sidebar.empty": "非表示にする機能を左側からここにドラッグ",
       "display.topic.title": "トピック設定",
       "display.custom.css": "カスタムCSS",
       "display.custom.css.placeholder": "/* ここにカスタムCSSを入力 */",
@@ -532,7 +537,7 @@
       "show_window": "ウィンドウを表示",
       "quit": "終了"
     },
-    "knowledge_base": {
+    "knowledge": {
       "title": "ナレッジベース",
       "search": "ナレッジベースを検索",
       "empty": "ナレッジベースが見つかりません",

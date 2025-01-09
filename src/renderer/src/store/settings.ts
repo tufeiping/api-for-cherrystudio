@@ -4,6 +4,18 @@ import { CodeStyleVarious, LanguageVarious, ThemeMode } from '@renderer/types'
 
 export type SendMessageShortcut = 'Enter' | 'Shift+Enter' | 'Ctrl+Enter' | 'Command+Enter'
 
+export type SidebarIcon = 'assistants' | 'agents' | 'paintings' | 'translate' | 'minapp' | 'knowledge' | 'files'
+
+export const DEFAULT_SIDEBAR_ICONS: SidebarIcon[] = [
+  'assistants',
+  'agents',
+  'paintings',
+  'translate',
+  'minapp',
+  'knowledge',
+  'files'
+]
+
 export interface SettingsState {
   showAssistants: boolean
   showTopics: boolean
@@ -41,14 +53,14 @@ export interface SettingsState {
   translateModelPrompt: string
   autoTranslateWithSpace: boolean
   enableTopicNaming: boolean
-  // Sidebar icons
-  showTranslateIcon: boolean
-  showPaintingIcon: boolean
-  showMinappIcon: boolean
-  showKnowledgeIcon: boolean
-  showFilesIcon: boolean
   customCss: string
   topicNamingPrompt: string
+  // Sidebar icons
+  sidebarIcons: {
+    visible: SidebarIcon[]
+    disabled: SidebarIcon[]
+  }
+  narrowMode: boolean
 }
 
 const initialState: SettingsState = {
@@ -87,13 +99,13 @@ const initialState: SettingsState = {
   translateModelPrompt: TRANSLATE_PROMPT,
   autoTranslateWithSpace: false,
   enableTopicNaming: true,
-  showTranslateIcon: true,
-  showPaintingIcon: true,
-  showMinappIcon: true,
-  showKnowledgeIcon: true,
-  showFilesIcon: true,
   customCss: '',
-  topicNamingPrompt: ''
+  topicNamingPrompt: '',
+  sidebarIcons: {
+    visible: DEFAULT_SIDEBAR_ICONS,
+    disabled: []
+  },
+  narrowMode: false
 }
 
 const settingsSlice = createSlice({
@@ -209,21 +221,6 @@ const settingsSlice = createSlice({
     setEnableTopicNaming: (state, action: PayloadAction<boolean>) => {
       state.enableTopicNaming = action.payload
     },
-    setShowTranslateIcon: (state, action: PayloadAction<boolean>) => {
-      state.showTranslateIcon = action.payload
-    },
-    setShowPaintingIcon: (state, action: PayloadAction<boolean>) => {
-      state.showPaintingIcon = action.payload
-    },
-    setShowMinappIcon: (state, action: PayloadAction<boolean>) => {
-      state.showMinappIcon = action.payload
-    },
-    setShowKnowledgeIcon: (state, action: PayloadAction<boolean>) => {
-      state.showKnowledgeIcon = action.payload
-    },
-    setShowFilesIcon: (state, action: PayloadAction<boolean>) => {
-      state.showFilesIcon = action.payload
-    },
     setPasteLongTextThreshold: (state, action: PayloadAction<number>) => {
       state.pasteLongTextThreshold = action.payload
     },
@@ -232,6 +229,12 @@ const settingsSlice = createSlice({
     },
     setTopicNamingPrompt: (state, action: PayloadAction<string>) => {
       state.topicNamingPrompt = action.payload
+    },
+    setSidebarIcons: (state, action: PayloadAction<{ visible: SidebarIcon[]; disabled: SidebarIcon[] }>) => {
+      state.sidebarIcons = action.payload
+    },
+    setNarrowMode: (state, action: PayloadAction<boolean>) => {
+      state.narrowMode = action.payload
     }
   }
 })
@@ -273,14 +276,11 @@ export const {
   setTranslateModelPrompt,
   setAutoTranslateWithSpace,
   setEnableTopicNaming,
-  setShowTranslateIcon,
-  setShowPaintingIcon,
-  setShowMinappIcon,
-  setShowKnowledgeIcon,
-  setShowFilesIcon,
   setPasteLongTextThreshold,
   setCustomCss,
-  setTopicNamingPrompt
+  setTopicNamingPrompt,
+  setSidebarIcons,
+  setNarrowMode
 } = settingsSlice.actions
 
 export default settingsSlice.reducer

@@ -89,12 +89,14 @@ class KnowledgeService {
     if (item.type === 'url') {
       const content = item.content as string
       if (content.startsWith('http')) {
+        // @ts-ignore loader type
         return await ragApplication.addLoader(new WebLoader({ urlOrContent: content }), forceReload)
       }
     }
 
     if (item.type === 'sitemap') {
       const content = item.content as string
+      // @ts-ignore loader type
       return await ragApplication.addLoader(new SitemapLoader({ url: content }), forceReload)
     }
 
